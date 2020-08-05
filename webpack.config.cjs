@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
         output: {filename: "script.js", chunkFilename: "script.js", path: path.resolve(__dirname, "./dist")},
         resolve: {extensions: [".js", ".jsx", ".ts", ".tsx"], alias: {"react-dom$": "react-dom/profiling", "scheduler/tracing": "scheduler/tracing-profiling"}},
         performance: {hints: false},
-        optimization: {minimize: false /*[new TerserJSPlugin(), new OptimizeCSSAssetsPlugin()]*/, namedModules: true},
+        optimization: {minimize: false [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin()], namedModules: true},
         module: {
             rules: [
                 {test: /\.(jpe?g|png|gif|svg|mp3|wav|mp4)$/, exclude, use: [{loader: "file-loader", options: {name: "[path][name].[ext]"}}]},
