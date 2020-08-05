@@ -33,14 +33,14 @@ if (process.env.TESTING === "yes") {
   app.use(hot(compiler))
 }
 
-app.use(express.static(__dirname + "/public"))
+app.use(express.static(path.join(__dirname, "./public")))
 
 app.get("*", function(req, res) {
   /*const html = ReactDOMServer.renderToString(<App/>)
   const data = fs.readFileSync(path.join(__dirname, "index.html"), {encoding: "utf-8"})
   const document = data.replace(`<div id="root"></div>`, `<div id="root">${html}</div>`)
   res.send(document)*/
-  res.sendFile(__dirname + "/dist/index.html")
+  res.sendFile(path.join(__dirname, "./dist/index.html"))
 })
 
 app.listen(process.env.PORT || 8080, () => console.log("Started the website server!"))
