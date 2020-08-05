@@ -1,4 +1,4 @@
-![Kisaragi](https://azurlane.koumakan.jp/w/images/5/5d/KisaragiChibi.png)
+![Kisaragi](https://pbs.twimg.com/media/DJxoZnQU8AEJ9Bo?format=jpg&name=small)
 
 ## Kisaragi Website
 
