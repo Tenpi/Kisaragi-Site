@@ -4,4 +4,3 @@ dist
 .env
 key.pem
 cert.pem
-old

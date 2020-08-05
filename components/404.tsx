@@ -10,7 +10,11 @@ interface Props {
 }
 
 export default class $404 extends Component<Props> {
-    public render() {
+    public componentDidMount = () => {
+        document.title = "404"
+    }
+
+    public render = () => {
         return (
             <>
             <Navbar/>

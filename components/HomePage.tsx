@@ -10,7 +10,11 @@ interface Props {
 }
 
 export default class HomePage extends Component<Props> {
-    public render() {
+    public componentDidMount = () => {
+        document.title = "Kisaragi Bot"
+    }
+
+    public render = () => {
         return (
             <>
             <Navbar/>

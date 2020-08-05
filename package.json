@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "npm run clean && npm run bundle-web && node --max_old_space_size=4096 server.js",
-    "bundle-web": "webpack --env.platform=web",
-    "bundle-server": "webpack --env.platform=server",
+    "bundle-web": "webpack --env.platform=web --config webpack.config.cjs",
+    "bundle-server": "webpack --env.platform=server --config webpack.config.cjs",
     "clean": "del-cli ./dist"
   },
   "engines": {
@@ -47,6 +47,7 @@
     "helmet": "^4.0.0",
     "history": "^5.0.0",
     "html-loader": "^1.1.0",
+    "html-react-parser": "^0.13.0",
     "html-webpack-plugin": "^4.3.0",
     "jquery": "^3.5.1",
     "less": "^3.12.2",
@@ -57,9 +58,12 @@
     "raw-loader": "^4.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.0.0",
     "react-slide-toggle": "^0.3.5",
+    "react-string-replace": "^0.4.4",
+    "reactjs-localstorage": "^1.0.1",
     "renamer": "^2.0.1",
     "terser-webpack-plugin": "^3.1.0",
     "ts-loader": "^8.0.2",

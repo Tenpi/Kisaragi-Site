@@ -7,7 +7,6 @@ import Navbar from "./Navbar"
 import Footer from "./Footer"
 import "../styles/termsofservice.less"
 import func from "../structures/Functions"
-
 interface Props {
     theme: string
     reRender: () => void
@@ -29,10 +28,12 @@ export default class TermsOfService extends Component<Props, State> {
 
     public handleScroll = () => {
         if ((window.scrollY || window.pageYOffset) > 1000) {
+            document.title = "Privacy Policy"
             this.setState({
                 colorChange: true
             })
         } else {
+            document.title = "Terms Of Service"
             this.setState({
                 colorChange: false
             })
@@ -40,6 +41,7 @@ export default class TermsOfService extends Component<Props, State> {
     }
 
     public componentDidMount = () => {
+        document.title = "Terms Of Service"
         if (window.location.href.includes("#privacy")) {
             window.location.href = "#privacy"
         }

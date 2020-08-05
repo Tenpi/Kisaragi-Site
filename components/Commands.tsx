@@ -1,13 +1,17 @@
-import React, {Component} from "react"
+import React, {Component, Fragment} from "react"
 import kisaragiNewYearChibi from "../assets/images/kisaraginewyearchibi.png"
 import searchIcon from "../assets/icons/search-icon.png"
 import showPic from "../assets/icons/show-pic.png"
+import loading from "../assets/icons/loading.gif"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 import "../styles/commands.less"
 import func from "../structures/Functions"
 import commands from "../json/commands.json"
 import $ from "jquery"
+import reactReplace from "react-string-replace"
+import {renderToStaticMarkup} from "react-dom/server"
+import parse from "html-react-parser"
 
 require.context("../assets/labels", true)
 require.context("../assets/help", true)
@@ -29,6 +33,9 @@ interface Props {
 
 interface State {
     category: string
+    commandExpanded: boolean
+    imageExpanded: boolean
+    searching: boolean
 }
 
 const categories = [
@@ -40,44 +47,84 @@ const categories = [
 ]
 
 export default class Commands extends Component<Props, State> {
+    private searchText = ""
     constructor(props: Props) {
         super(props)
         this.state = {
-            category: "none"
+            category: "none",
+            commandExpanded: false,
+            imageExpanded: false,
+            searching: false
         }
     }
 
-    public commandInteractions = () => {
-        /*Toggle Example Image*/
-        $(".show-pic").click((event) => {
-            const current = $(event.target).closest(".command-box")
-            current.find(".example-image").slideDown()
-            current.find(".show-pic-container").slideUp()
-        })
-
-        $(".example-image img").click((event) => {
-            const current = $(event.target).closest(".command-box")
-            current.find(".example-image").slideUp()
-            current.find(".show-pic-container").slideDown()
-        })
-
-        /*Toggle Command Details*/
-        $(".command-container").click((event) => {
-            const current = $(event.target).closest(".command-box")
-            if (current.find(".example-image").css("display") !== "none") {
-                current.find(".example-image").slideUp()
-                current.find(".show-pic-container").slideDown()
+    public searchCommands = () => {
+        let query = this.searchText
+        query = query.toLowerCase()
+        const foundCommands = commands.filter((c) => {
+            for (let i = 0; i < Object.values(c).length; i++) {
+                if (String(Object.values(c)[i]).toLowerCase().includes(query)) return true
             }
-            current.find(".command-details").slideToggle()
+            return false
         })
+        const jsx: any = []
+        for (let i = 0; i < foundCommands.length; i++) {
+            const command = foundCommands[i]
+            jsx.push(this.generateJSX(command))
+        }
+        localStorage.setItem("commands", `search: ${this.searchText}`)
+        return jsx
     }
 
-    public componentDidUpdate = () => {
-        this.commandInteractions()
+    public expandCommand = (event: React.MouseEvent) => {
+        this.setState((prev) => ({
+            commandExpanded: !prev.commandExpanded
+        }))
+        const current = $(event.target).closest(".command-box")
+        if (current.find(".example-image").css("display") !== "none") {
+            current.find(".example-image").slideUp()
+            current.find(".show-pic-container").slideDown()
+        }
+        current.find(".command-details").slideToggle()
+    }
+
+    public expandImage = (event: React.MouseEvent) => {
+        this.setState({
+            imageExpanded: true
+        })
+        const current = $(event.target).closest(".command-box")
+        current.find(".example-image").slideDown()
+        current.find(".show-pic-container").slideUp()
+    }
+
+    public contractImage = (event: React.MouseEvent) => {
+        this.setState({
+            imageExpanded: false
+        })
+        const current = $(event.target).closest(".command-box")
+        current.find(".example-image").slideUp()
+        current.find(".show-pic-container").slideDown()
+    }
+
+    public componentDidMount = () => {
+        document.title = "Commands"
+        const commandStorage = localStorage.getItem("commands")
+        if (commandStorage) {
+            this.handleClick("reload")
+        }
     }
 
     public commandColumns = () => {
-        const category = this.state.category
+        let category = this.state.category
+        if (category === "reload") {
+            category = localStorage.getItem("commands") ?? ""
+            if (category.includes("search")) {
+                const query = category.split(":").slice(1).join(" ").trim()
+                this.searchText = query
+                category = "search"
+            }
+        }
+        if (category === "search") return this.searchCommands()
         if (!category || category === "none") return
         const categoryCommands = commands.filter((c) => c.category === category)
         const jsx: any = []
@@ -90,7 +137,8 @@ export default class Commands extends Component<Props, State> {
 
     public handleClick = (category: string) => {
         if (category === "bot dev") category = "bot developer"
-        if (this.state.category === category) category = "none"
+        if (this.state.category !== "search" && this.state.category !== "reload" && this.state.category === category) category = "none"
+        if (category !== "reload") localStorage.setItem("commands", category)
         this.setState({category})
     }
 
@@ -124,11 +172,11 @@ export default class Commands extends Component<Props, State> {
             }
         }*/
         const category = command.category === "bot developer" ? "botdev" : command.category.replace(/ +/g, "")
-        const help = command.help.replace(/\n/g, `<br className="command-selection ${category}-command-selection">`).replace(/_/g, "")
-        const examples = command.examples.replace(/\n/g, `<br className="command-selection ${category}-command-selection">`)
+        const help = reactReplace(command.help.replace(/_/g, ""), /\n/g, () => <br className={`command-selection ${category}-command-selection`}/>)
+        const examples = reactReplace(command.examples, /\n/g, () => <br className={`command-selection ${category}-command-selection`}/>)
         return (
             <div className={`command-box ${category}-command-box`}>
-                <div className="command-container">
+                <div className="command-container" onClick={(event) => this.expandCommand(event)}>
                     <div className="command-text-container">
                         <h3 className={`command-name ${category}-command-name`}><span className={`command-selection ${category}-command-selection`}>{command.command}</span></h3>
                         <div className="command-desc-container">
@@ -141,13 +189,13 @@ export default class Commands extends Component<Props, State> {
                     <h5 className={`command-aliases command-detail-color ${category}-command-detail-color`}><span className={`command-selection ${category}-command-selection`}>Aliases: {command.aliases}</span></h5>
                     <h5 className={`command-cooldown command-detail-color ${category}-command-detail-color`}><span className={`command-selection ${category}-command-selection`}>Cooldown: {command.cooldown}</span></h5>
                     <p className={`command-help ${category}-command-help command-selection ${category}-command-selection`}>Help:<br className={`command-selection ${category}-command-selection`}/>{help}</p>
-                    <h5 className={`command-examples command-detail-color ${category}-command-detail-color command-selection ${category}-command-selection`}>Examples:<br className={`command-selection\ ${category}-command-selection`}/>{examples}</h5>
+                    <h5 className={`command-examples command-detail-color ${category}-command-detail-color command-selection ${category}-command-selection`}>Examples:<br className={`command-selection ${category}-command-selection`}/>{examples}</h5>
                     <div className="show-pic-container">
-                        <img src={showPic} width="76" height="64" className={`show-pic ${category}-show-pic command-selection ${category}-command-selection`}/>
+                        <img src={showPic} width="76" height="64" className={`show-pic ${category}-show-pic command-selection ${category}-command-selection`} onClick={(event) => this.expandImage(event)}/>
                     </div>
                 </div>
                 {noImg ? null :
-                <div className="example-image">
+                <div className="example-image" onClick={(event) => this.contractImage(event)}>
                     <img src={image} className={`command-selection ${category}-command-selection command-img`}/>
                 </div>
                 }
@@ -178,12 +226,13 @@ export default class Commands extends Component<Props, State> {
 
                 <section className="commands-search-bar">
                     <div className="commands-search-container">
-                        <input type="search" spellCheck="false" placeholder="Search..." className="commands-search"/>
-                        <button type="submit" id="submit" className="commands-search-button"><img src={searchIcon} width="140" height="140" className="search-icon"/></button>
+                        <input type="search" spellCheck="false" placeholder="Search..." className="commands-search" onChange={(event) => {this.searchText = event.target.value}}/>
+                        <button type="submit" id="submit" className="commands-search-button" onClick={() => this.handleClick("search")}><img src={searchIcon} width="140" height="140" className="search-icon"/></button>
                     </div>
                 </section>
 
                 <section className="command-columns">
+                    {this.state.searching ? <img src={loading} width="50" height="50"/> : null}
                     {this.commandColumns()}
                 </section>
             </main>
