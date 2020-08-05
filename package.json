@@ -10,6 +10,7 @@
     "bundle-server": "webpack --env.platform=server --config webpack.config.cjs",
     "clean": "del-cli ./dist"
   },
+  "homepage": ".",
   "engines": {
     "node": ">=13.10.0"
   },
