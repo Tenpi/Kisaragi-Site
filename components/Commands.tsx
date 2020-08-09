@@ -27,7 +27,6 @@ interface Command {
 }
 
 interface Props {
-    theme: string
     reRender: () => void
 }
 
@@ -74,6 +73,12 @@ export default class Commands extends Component<Props, State> {
         }
         localStorage.setItem("commands", `search: ${this.searchText}`)
         return jsx
+    }
+
+    public expandReset = () => {
+        $(".example-image").css("display", "none")
+        $(".show-pic-container").css("display", "flex")
+        $(".command-details").css("display", "none")
     }
 
     public expandCommand = (event: React.MouseEvent) => {
@@ -138,7 +143,10 @@ export default class Commands extends Component<Props, State> {
     public handleClick = (category: string) => {
         if (category === "bot dev") category = "bot developer"
         if (this.state.category !== "search" && this.state.category !== "reload" && this.state.category === category) category = "none"
-        if (category !== "reload") localStorage.setItem("commands", category)
+        if (category !== "reload") {
+            localStorage.setItem("commands", category)
+            this.expandReset()
+        }
         this.setState({category})
     }
 

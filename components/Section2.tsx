@@ -5,12 +5,7 @@ import akashiNewYear from "../assets/images/akashinewyear.png"
 import $33 from "../assets/images/33.png"
 import laffeyChibi from "../assets/images/laffeychibi.png"
 import "../styles/section2.less"
-
-interface Props {
-    theme: string
-}
-
-export default class Section2 extends Component<Props> {
+export default class Section2 extends Component {
     public render() {
         return (
             <section className="section2">

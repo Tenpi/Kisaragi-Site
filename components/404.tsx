@@ -5,7 +5,6 @@ import Footer from "./Footer"
 import "../styles/404.less"
 
 interface Props {
-    theme: string
     reRender: () => void
 }
 

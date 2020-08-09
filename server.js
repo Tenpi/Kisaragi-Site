@@ -23,6 +23,7 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(favicon(__dirname + "/assets/icons/favicon.gif"))
 app.disable("x-powered-by")
+app.set("trust proxy", true)
 
 if (process.env.TESTING === "yes") {
   app.use(middleware(compiler, {

@@ -7,7 +7,6 @@ import $404 from "./components/404"
 import ScrollToTop from "./components/ScrollToTop"
 import "./index.less"
 import func from "./structures/Functions"
-
 export default class App extends Component {
   public reRender = () => {
     this.forceUpdate()
@@ -29,18 +28,18 @@ export default class App extends Component {
       theme = "dark"
     }
     return (
-      <div className={theme === "dark" ? "app dark-theme" : "app"}>
+      <div className={theme === "dark" ? "app dark-theme" : "app"} onTouchStart={() => ""}>
         <Router>
-        <ScrollToTop>
-          <Switch>
-            <Route exact path={["/", "/home", "/index", "/index.html", "/kisaragi"]}><HomePage theme={theme} reRender={this.reRender}/></Route>
-            <Route exact path={["/commands", "/commands.html"]}><Commands theme={theme} reRender={this.reRender}/></Route>
-            <Route exact path={["/privacy", "/privacypolicy"]}><Redirect to="/terms#privacy"/></Route>
-            <Route exact path={["/terms", "/termsofservice"]}><TermsOfService theme={theme} reRender={this.reRender}/></Route>
-            <Route path="*"><$404 theme={theme} reRender={this.reRender}/></Route>
-          </Switch>
-        </ScrollToTop>
-      </Router>
+          <ScrollToTop>
+            <Switch>
+              <Route exact path={["/", "/home", "/index", "/index.html", "/kisaragi"]}><HomePage reRender={this.reRender}/></Route>
+              <Route exact path={["/commands", "/commands.html"]}><Commands reRender={this.reRender}/></Route>
+              <Route exact path={["/privacy", "/privacypolicy"]}><Redirect to="/terms#privacy"/></Route>
+              <Route exact path={["/terms", "/termsofservice"]}><TermsOfService reRender={this.reRender}/></Route>
+              <Route path="*"><$404 reRender={this.reRender}/></Route>
+            </Switch>
+          </ScrollToTop>
+        </Router>
       </div>
     )
   }

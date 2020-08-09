@@ -8,7 +8,6 @@ import Footer from "./Footer"
 import "../styles/termsofservice.less"
 import func from "../structures/Functions"
 interface Props {
-    theme: string
     reRender: () => void
 }
 
