@@ -1,9 +1,13 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
+import React from "react"
+import ReactDOM from "react-dom"
 import App from "./App"
-import * as serviceWorker from "./serviceWorker"
+import * as serviceWorker from "./service-worker"
 import images from "./structures/Images"
 
 ReactDOM.render(<App/>, document.getElementById("root"))
 // images.animateFavicon()
-serviceWorker.unregister()
+if (process.env.TESTING === "yes") {
+    serviceWorker.unregister()
+} else {
+    serviceWorker.register()
+}
