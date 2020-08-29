@@ -83,7 +83,7 @@ export default class Navbar extends Component<{}, State> {
             <div className="nav-fixed">
                 <nav className="navbar">
                     <div className="nav-left">
-                        <img src={kisaragiChibi} alt="Kisaragi Chibi" height="56" width="58" className="kisaragichibi no-ios-preview"/>
+                        <Link to="/"><img src={kisaragiChibi} alt="Kisaragi Chibi" height="56" width="58" className="kisaragichibi no-ios-preview"/></Link>
                         <ul className="nav-ul">
                             <li className="nav-li" onMouseEnter={() => this.toggleDropdown(false)}><Link to="/" className="navbar-text drop-hide">Kisaragi</Link></li>
                             <li className="nav-li"><a className="navbar-text"><span className="features" onClick={() => this.toggleDropdown()} onMouseEnter={() => this.toggleDropdown(true)}>Features</span></a></li>

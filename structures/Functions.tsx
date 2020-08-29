@@ -103,4 +103,11 @@ export default class Functions {
     }
     return arrays
   }
+
+  /** Prevent image dragging */
+  public static preventDragging = () => {
+    document.querySelectorAll("img").forEach((img) => {
+      img.draggable = false
+    })
+  }
 }

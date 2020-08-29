@@ -6,14 +6,15 @@ import TermsOfService from "./components/TermsOfService"
 import $404 from "./components/404"
 import ScrollToTop from "./components/ScrollToTop"
 import "./index.less"
-import func from "./structures/Functions"
+import functions from "./structures/Functions"
 export default class App extends Component {
   public reRender = () => {
     this.forceUpdate()
   }
 
   public componentDidMount = () => {
-    func.preventDoubleClick()
+    functions.preventDoubleClick()
+    functions.preventDragging()
   }
 
   public render = () => {
