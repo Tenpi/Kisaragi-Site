@@ -13,7 +13,7 @@ export default class Section1 extends Component<{}, State> {
     constructor(props: any) {
         super(props)
         this.state = {
-            chrome: false
+            chrome: true
         }
     }
     public componentDidMount = () => {
