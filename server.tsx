@@ -36,11 +36,11 @@ if (process.env.TESTING === "yes") {
 }
 
 app.use(express.static(path.join(__dirname, "./public")))
-app.use(express.static(path.join(__dirname, "./dist")))
+app.use(express.static(path.join(__dirname, "./dist"), {index: false}))
 
 app.get("*", function(req, res) {
   const html = ReactDOMServer.renderToString(<Router><App/></Router>)
-  const data = fs.readFileSync(path.join(__dirname, "index.html"), {encoding: "utf-8"})
+  const data = fs.readFileSync(path.join(__dirname, "./dist/index.html"), {encoding: "utf-8"})
   const document = data.replace(`<div id="app"></div>`, `<div id="app">${html}</div>`)
   res.send(document)
 })
