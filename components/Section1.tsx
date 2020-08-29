@@ -28,8 +28,8 @@ export default class Section1 extends Component<{}, State> {
             <section className="section1">
                 <img src={kisaragi} alt="Kisaragi" height="578" width="454" className="kisaragi no-ios-preview"/>
                 <div className="section1-vertical">
-                    <h2 className={this.state.chrome ? "section1-text section1-title" : "section1-text section1-title stroke-title"}>A kawaii discord bot!</h2>
-                    <h4 className={this.state.chrome ? "section1-text section1-paragraph" : "section1-text section1-paragraph stroke-paragraph"}>
+                    <h2 className={!this.state.chrome ? "section1-text section1-title stroke-title" : "section1-text section1-title"}>A kawaii discord bot!</h2>
+                    <h4 className={!this.state.chrome ? "section1-text section1-paragraph stroke-paragraph" : "section1-text section1-paragraph"}>
                         Kisaragi has over 370 commands that mainly focus on anime, music, and website searching.
                         She also has some utilities like anime picture detection, reaction roles, and welcome/leave messages!
                     </h4>

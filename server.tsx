@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, "./public")))
 app.use(express.static(path.join(__dirname, "./dist"), {index: false}))
 
 app.get("*", function(req, res) {
+  res.setHeader("Content-Type", mime.getType(req.path) ?? "")
   const html = ReactDOMServer.renderToString(<Router location={req.url}><App/></Router>)
   const data = fs.readFileSync(path.join(__dirname, "./dist/index.html"), {encoding: "utf-8"})
   const document = data.replace(`<div id="app"></div>`, `<div id="app">${html}</div>`)
