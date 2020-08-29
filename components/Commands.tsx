@@ -171,14 +171,8 @@ export default class Commands extends Component<Props, State> {
     public generateJSX = (command: Command) => {
         let image = `assets/help/${command.category}/${command.command}.png`
         if (command.category === "weeb") image = `assets/help/japanese/${command.command}.png`
-        const noImg = false
-        /*
-        if (!await func.imageExists(`../${image}`)) {
-            image = image.slice(0, -3) + "gif"
-            if (!await func.imageExists(`../${image}`)) {
-                noImg = true
-            }
-        }*/
+        const gifImages = ["ugoira", "giphy", "tenor"]
+        if (gifImages.includes(command.command)) image = image.slice(0, -3) + "gif"
         const category = command.category === "bot developer" ? "botdev" : command.category.replace(/ +/g, "")
         const help = reactReplace(command.help.replace(/_/g, ""), /\n/g, () => <br className={`command-selection ${category}-command-selection`}/>)
         const examples = reactReplace(command.examples, /\n/g, () => <br className={`command-selection ${category}-command-selection`}/>)
@@ -202,11 +196,9 @@ export default class Commands extends Component<Props, State> {
                         <img src={showPic} width="76" height="64" className={`show-pic ${category}-show-pic command-selection ${category}-command-selection`} onClick={(event) => this.expandImage(event)}/>
                     </div>
                 </div>
-                {noImg ? null :
                 <div className="example-image" onClick={(event) => this.contractImage(event)}>
                     <img src={image} className={`command-selection ${category}-command-selection command-img`}/>
                 </div>
-                }
             </div>
         )
     }
