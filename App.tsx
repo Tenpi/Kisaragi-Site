@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {BrowserRouter as Router, Switch, Route, Redirect, BrowserRouter} from "react-router-dom"
+import {Switch, Route, Redirect} from "react-router-dom"
 import HomePage from "./components/HomePage"
 import Commands from "./components/Commands"
 import TermsOfService from "./components/TermsOfService"
@@ -29,7 +29,6 @@ export default class App extends Component {
     }
     return (
       <div className={theme === "dark" ? "app dark-theme" : "app"} onTouchStart={() => ""}>
-        <Router>
           <ScrollToTop>
             <Switch>
               <Route exact path={["/", "/home", "/index", "/index.html", "/kisaragi"]}><HomePage reRender={this.reRender}/></Route>
@@ -39,7 +38,6 @@ export default class App extends Component {
               <Route path="*"><$404 reRender={this.reRender}/></Route>
             </Switch>
           </ScrollToTop>
-        </Router>
       </div>
     )
   }
