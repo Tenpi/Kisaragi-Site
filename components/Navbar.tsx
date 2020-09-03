@@ -70,6 +70,7 @@ export default class Navbar extends Component<{}, State> {
                         <li><Link to="/" className="navbar-mobile-text">Kisaragi</Link></li>
                         <li><Link to="/home#features" className="navbar-mobile-text">Features</Link></li>
                         <li><Link to="/commands" className="navbar-mobile-text">Commands</Link></li>
+                        <li><Link to="/about" className="navbar-mobile-text">About</Link></li>
                         <li><a href="https://discord.com/oauth2/authorize?client_id=593838271650332672&permissions=2113793271&scope=bot" className="navbar-mobile-text" target="_blank">Invite</a></li>
                         <li><a href="https://discord.gg/77yGmWM" className="navbar-mobile-text" target="_blank">Discord</a></li>
                         <li><a href="https://github.com/Tenpi/Kisaragi" className="navbar-mobile-text" target="_blank">Github</a></li>
@@ -88,6 +89,7 @@ export default class Navbar extends Component<{}, State> {
                             <li className="nav-li" onMouseEnter={() => this.toggleDropdown(false)}><Link to="/" className="navbar-text drop-hide">Kisaragi</Link></li>
                             <li className="nav-li"><a className="navbar-text"><span className="features" onClick={() => this.toggleDropdown()} onMouseEnter={() => this.toggleDropdown(true)}>Features</span></a></li>
                             <li className="nav-li" onMouseEnter={() => this.toggleDropdown(false)}><Link to="/commands" className="navbar-text drop-hide">Commands</Link></li>
+                            <li className="nav-li"><Link to="/about" className="navbar-text drop-hide">About</Link></li>
                             <li className="nav-li"><a href="https://discord.com/oauth2/authorize?client_id=593838271650332672&permissions=2113793271&scope=bot" className="navbar-text" target="_blank">Invite</a></li>
                             <li className="nav-li"><a href="https://discord.gg/77yGmWM" className="navbar-text" target="_blank">Discord</a></li>
                             <li className="nav-li"><a href="https://github.com/Tenpi/Kisaragi" className="navbar-text" target="_blank">Github</a></li>
@@ -101,6 +103,7 @@ export default class Navbar extends Component<{}, State> {
                         <li><Link to="/" className="navbar-mobile-text">Kisaragi</Link></li>
                         <li><Link to="/home#features" className="navbar-mobile-text">Features</Link></li>
                         <li><Link to="/commands" className="navbar-mobile-text">Commands</Link></li>
+                        <li><Link to="/about" className="navbar-mobile-text">About</Link></li>
                         <li><a href="https://discord.com/oauth2/authorize?client_id=593838271650332672&permissions=2113793271&scope=bot" className="navbar-mobile-text" target="_blank">Invite</a></li>
                         <li><a href="https://discord.gg/77yGmWM" className="navbar-mobile-text" target="_blank">Discord</a></li>
                         <li><a href="https://github.com/Tenpi/Kisaragi" className="navbar-mobile-text" target="_blank">Github</a></li>

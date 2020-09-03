@@ -40,10 +40,14 @@ app.use(express.static(path.join(__dirname, "./dist"), {index: false}))
 
 app.get("*", function(req, res) {
   res.setHeader("Content-Type", mime.getType(req.path) ?? "")
-  const html = ReactDOMServer.renderToString(<Router location={req.url}><App/></Router>)
-  const data = fs.readFileSync(path.join(__dirname, "./dist/index.html"), {encoding: "utf-8"})
-  const document = data.replace(`<div id="app"></div>`, `<div id="app">${html}</div>`)
-  res.send(document)
+  if (process.env.TESTING === "yes") {
+    res.sendFile(path.join(__dirname, "./dist/index.html"))
+  } else {
+    const html = ReactDOMServer.renderToString(<Router location={req.url}><App/></Router>)
+    const data = fs.readFileSync(path.join(__dirname, "./dist/index.html"), {encoding: "utf-8"})
+    const document = data.replace(`<div id="app"></div>`, `<div id="app">${html}</div>`)
+    res.send(document)
+  }
 })
 
 app.listen(process.env.PORT || 8080, () => console.log("Started the website server!"))

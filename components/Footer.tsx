@@ -79,6 +79,7 @@ export default class Footer extends Component<Props, State> {
                                 <li className="footer-li"><Link to="/commands" className="footer-link">Commands</Link></li>
                                 <li className="footer-li"><Link to="/terms" className="footer-link">Terms of Service</Link></li>
                                 <li className="footer-li"><Link to="/terms#privacy" className="footer-link">Privacy Policy</Link></li>
+                                <li className="footer-li"><Link to="/about" className="footer-link">About</Link></li>
                             </ul>
                         </div>
                         <div className="footer-box">

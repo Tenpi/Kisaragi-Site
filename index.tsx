@@ -5,10 +5,11 @@ import * as serviceWorker from "./service-worker"
 import {BrowserRouter as Router} from "react-router-dom"
 import images from "./structures/Images"
 
-ReactDOM.hydrate(<Router><App/></Router>, document.getElementById("app"))
 // images.animateFavicon()
 if (process.env.TESTING === "yes") {
+    ReactDOM.render(<Router><App/></Router>, document.getElementById("app"))
     serviceWorker.unregister()
 } else {
+    ReactDOM.hydrate(<Router><App/></Router>, document.getElementById("app"))
     serviceWorker.register()
 }

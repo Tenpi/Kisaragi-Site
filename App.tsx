@@ -4,6 +4,7 @@ import HomePage from "./components/HomePage"
 import Commands from "./components/Commands"
 import TermsOfService from "./components/TermsOfService"
 import $404 from "./components/404"
+import About from "./components/About"
 import ScrollToTop from "./components/ScrollToTop"
 import "./index.less"
 import functions from "./structures/Functions"
@@ -36,6 +37,7 @@ export default class App extends Component {
               <Route exact path={["/commands", "/commands.html"]}><Commands reRender={this.reRender}/></Route>
               <Route exact path={["/privacy", "/privacypolicy"]}><Redirect to="/terms#privacy"/></Route>
               <Route exact path={["/terms", "/termsofservice"]}><TermsOfService reRender={this.reRender}/></Route>
+              <Route exact path={["/about", "/about.html"]}><About reRender={this.reRender}/></Route>
               <Route path="*"><$404 reRender={this.reRender}/></Route>
             </Switch>
           </ScrollToTop>
