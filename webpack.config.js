@@ -6,7 +6,6 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const nodeExternals = require("webpack-node-externals")
 const webpack = require("webpack")
 const path = require("path")
-const Dotenv = require("dotenv-webpack")
 const exclude = [/node_modules/, /dist/]
 
 module.exports = (env, argv) => {
@@ -31,7 +30,6 @@ module.exports = (env, argv) => {
             ]
         },
         plugins: [
-            new Dotenv(),
             new ForkTsCheckerWebpackPlugin(),
             new webpack.HotModuleReplacementPlugin(),
             new webpack.HashedModuleIdsPlugin(),
