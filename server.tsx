@@ -37,7 +37,7 @@ if (process.env.TESTING === "yes") {
 app.use(express.static(path.join(__dirname, "./public")))
 app.use(express.static(path.join(__dirname, "./assets")))
 app.use(express.static(path.join(__dirname, "./dist"), {index: false}))
-app.use(favicon(__dirname + "./assets/icons/favicon.gif"))
+app.use(favicon(__dirname + "/assets/icons/favicon.gif"))
 
 app.get("*", function(req, res) {
   res.setHeader("Content-Type", mime.getType(req.path) ?? "")
