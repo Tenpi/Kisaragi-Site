@@ -21,7 +21,6 @@ const compiler = webpack(config({platform: "web"}) as any)
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(cors())
-app.use(favicon(__dirname + "/assets/icons/favicon.gif"))
 app.disable("x-powered-by")
 app.set("trust proxy", true)
 
@@ -36,7 +35,9 @@ if (process.env.TESTING === "yes") {
 }
 
 app.use(express.static(path.join(__dirname, "./public")))
+app.use(express.static(path.join(__dirname, "./assets")))
 app.use(express.static(path.join(__dirname, "./dist"), {index: false}))
+app.use(favicon(__dirname + "./assets/icons/favicon.gif"))
 
 app.get("*", function(req, res) {
   res.setHeader("Content-Type", mime.getType(req.path) ?? "")
