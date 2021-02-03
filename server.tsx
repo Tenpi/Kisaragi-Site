@@ -16,7 +16,6 @@ import App from "./App"
 import fs from "fs"
 const __dirname = path.resolve()
 
-dotenv.config()
 const app = express()
 const compiler = webpack(config({platform: "web"}) as any)
 app.use(bodyParser.urlencoded({extended: false}))
@@ -27,6 +26,7 @@ app.disable("x-powered-by")
 app.set("trust proxy", true)
 
 if (process.env.TESTING === "yes") {
+  dotenv.config()
   app.use(middleware(compiler, {
     noInfo: true,
     serverSideRender: true,
