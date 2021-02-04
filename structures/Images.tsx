@@ -1,5 +1,5 @@
 import func from "./Functions"
-import gif from "../assets/icons/favicon.gif"
+import "../assets/icons/favicon.gif"
 
 export default class Images {
     public static animateFavicon = () => {
