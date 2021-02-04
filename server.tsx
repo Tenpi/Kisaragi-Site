@@ -40,6 +40,9 @@ app.use(express.static(path.join(__dirname, "./dist"), {index: false}))
 app.use(favicon(__dirname + "/assets/icons/favicon.gif"))
 
 app.get("*", function(req, res) {
+  if (req.hostname.includes("herokuapp")) {
+    res.redirect(301, `https://kisaragi.moe${req.path}`)
+  }
   res.setHeader("Content-Type", mime.getType(req.path) ?? "")
   if (process.env.TESTING === "yes") {
     res.sendFile(path.join(__dirname, "./dist/index.html"))
