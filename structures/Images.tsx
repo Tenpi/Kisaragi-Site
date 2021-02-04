@@ -1,12 +1,12 @@
 import func from "./Functions"
+import gif from "../assets/icons/icon.gif"
 
 export default class Images {
     public static animateFavicon = () => {
         const {Firefox} = func.getBrowser()
         if (Firefox) return
-        const favURL = `${window.location.protocol}//${window.location.host}/assets/icons/icon.gif`
         // @ts-ignore Included in script file
-        favloader.init({gif: favURL})
+        favloader.init({gif})
         // @ts-ignore Included in script file
         favloader.start()
     }
